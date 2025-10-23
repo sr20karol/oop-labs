@@ -1,8 +1,4 @@
-﻿using System;
-using System.Reflection.Emit;
-using System.Xml.Linq;
-
-namespace Simulator;
+﻿namespace Simulator;
 
 public class Creature
 {
@@ -76,10 +72,27 @@ public class Creature
         }
     }
 
-    public void SayHi()
-    {
-        Console.WriteLine($"Hi, I'm {Name}, my level is {Level}.");
-    }
+    public void SayHi() => Console.WriteLine($"Hi, I'm {Name}, my level is {Level}.");
 
     public string Info => $"{Name} [{Level}]";
+
+    public void Go(Direction direction)
+    {
+        string directionStr = direction.ToString().ToLower();
+        Console.WriteLine($"{Name} goes {directionStr}.");
+    }
+
+    public void Go(Direction[] directions)
+    {
+        foreach (var dir in directions)
+        {
+            Go(dir);
+        }
+    }
+
+    public void Go(string input)
+    {
+        var directions = DirectionParser.Parse(input);
+        Go(directions);
+    }
 }
