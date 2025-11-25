@@ -8,12 +8,7 @@ public class Elf : Creature
     public int Agility
     {
         get => agility;
-        init
-        {
-            if (value < 0) agility = 0;
-            else if (value > 10) agility = 10;
-            else agility = value;
-        }
+        init => agility = Validator.Limiter(value, 0, 10);
     }
 
     public void Sing()

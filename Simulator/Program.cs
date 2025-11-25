@@ -5,7 +5,7 @@ internal class Program
     static void Main(string[] args)
     {
         Console.WriteLine("Starting Simulator!\n");
-        TestElfsAndOrcs();
+        TestValidators();
     }
     //static void TestDirections()
     //{
@@ -62,36 +62,33 @@ internal class Program
     //    Console.WriteLine(a.Info);
     //}
 
-    static void TestElfsAndOrcs()
+    static void TestValidators()
     {
-        Console.WriteLine("HUNT TEST\n");
+        Console.WriteLine("VALIDATOR TEST\n");
+
         var o = new Orc() { Name = "Gorbag", Rage = 7 };
-        o.SayHi();
+        var e = new Elf("Legolas", agility: 2);
+
         for (int i = 0; i < 10; i++)
         {
             o.Hunt();
-            o.SayHi();
-        }
-
-        Console.WriteLine("\nSING TEST\n");
-        var e = new Elf("Legolas", agility: 2);
-        e.SayHi();
-        for (int i = 0; i < 10; i++)
-        {
             e.Sing();
-            e.SayHi();
         }
 
         Console.WriteLine("\nPOWER TEST\n");
-        Creature[] creatures = {
+
+        Creature[] creatures =
+        {
         o,
         e,
         new Orc("Morgash", 3, 8),
         new Elf("Elandor", 5, 3)
     };
-        foreach (Creature creature in creatures)
+
+        foreach (var creature in creatures)
         {
             Console.WriteLine($"{creature.Name,-15}: {creature.Power}");
         }
     }
+
 }
