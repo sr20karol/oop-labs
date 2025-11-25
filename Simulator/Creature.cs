@@ -36,7 +36,12 @@ public abstract class Creature
 
     public abstract void SayHi();
 
-    public string Info => $"{Name} [{Level}]";
+    public abstract string Info { get; }
+
+    public override string ToString()
+    {
+        return $"{GetType().Name.ToUpper()}: {Info}";
+    }
 
     public void Go(Direction direction)
     {

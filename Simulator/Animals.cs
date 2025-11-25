@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Simulator;
+﻿namespace Simulator;
 
 public class Animals
 {
@@ -39,5 +37,10 @@ public class Animals
 
     public uint Size { get; set; } = 3;
 
-    public string Info => $"{Description} <{Size}>";
+    public virtual string Info => $"{Description} <{Size}>";
+
+    public override string ToString()
+    {
+        return $"{GetType().Name.ToUpper()}: {Info}";
+    }
 }
