@@ -34,7 +34,7 @@ public abstract class Creature
         }
     }
 
-    public abstract void SayHi();
+    public abstract string Greeting();
 
     public abstract string Info { get; }
 
@@ -43,25 +43,23 @@ public abstract class Creature
         return $"{GetType().Name.ToUpper()}: {Info}";
     }
 
-    public void Go(Direction direction)
-    {
-        string directionStr = direction.ToString().ToLower();
-        Console.WriteLine($"{Name} goes {directionStr}.");
-    }
+    public string Go(Direction direction) => $"{direction.ToString().ToLower()}";
 
-    public void Go(Direction[] directions)
+    public string[] Go(Direction[] directions)
     {
-        foreach (var dir in directions)
+        var result = new string[directions.Length];
+
+        for (int i = 0; i < directions.Length; i++)
         {
-            Go(dir);
+            result[i] = Go(directions[i]);
         }
+        return result;
     }
 
     public abstract int Power { get; }
 
-    public void Go(string input)
+    public string[] Go(string input)
     {
-        var directions = DirectionParser.Parse(input);
-        Go(directions);
+        return Go(DirectionParser.Parse(input));
     }
 }

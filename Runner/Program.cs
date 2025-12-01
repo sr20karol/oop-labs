@@ -1,11 +1,13 @@
-﻿namespace Simulator;
+﻿using Simulator;
 
+namespace Runner;
 internal class Program
 {
     static void Main(string[] args)
     {
         Console.WriteLine("Starting Simulator!\n");
         TestObjectsToString();
+        TestValidators();
     }
 
     static void TestObjectsToString()
@@ -30,7 +32,7 @@ internal class Program
     //static void TestDirections()
     //{
     //    Creature c = new("Shrek", 7);
-    //    c.SayHi();
+    //    c.Greeting();
 
     //    Console.WriteLine("\n* Up");
     //    c.Go(Direction.Up);
@@ -84,33 +86,33 @@ internal class Program
 
 
 
-    //static void TestValidators()
-    //{
-    //    Console.WriteLine("VALIDATOR TEST\n");
+    static void TestValidators()
+    {
+        Console.WriteLine("VALIDATOR TEST\n");
 
-    //    var o = new Orc() { Name = "Gorbag", Rage = 7 };
-    //    var e = new Elf("Legolas", agility: 2);
+        var o = new Orc() { Name = "Gorbag", Rage = 7 };
+        var e = new Elf("Legolas", agility: 2);
 
-    //    for (int i = 0; i < 10; i++)
-    //    {
-    //        o.Hunt();
-    //        e.Sing();
-    //    }
+        for (int i = 0; i < 10; i++)
+        {
+            o.Hunt();
+            e.Greeting();
+        }
 
-    //    Console.WriteLine("\nPOWER TEST\n");
+        Console.WriteLine("\nPOWER TEST\n");
 
-    //    Creature[] creatures =
-    //    {
-    //    o,
-    //    e,
-    //    new Orc("Morgash", 3, 8),
-    //    new Elf("Elandor", 5, 3)
-    //};
+        Creature[] creatures =
+        {
+        o,
+        e,
+        new Orc("Morgash", 3, 8),
+        new Elf("Elandor", 5, 3)
+    };
 
-    //    foreach (var creature in creatures)
-    //    {
-    //        Console.WriteLine($"{creature.Name,-15}: {creature.Power}");
-    //    }
-    //}
+        foreach (var creature in creatures)
+        {
+            Console.WriteLine($"{creature.Name,-15}: {creature.Power}");
+        }
+    }
 
 }
