@@ -8,6 +8,7 @@ public abstract class Creature
     private int level = 1;
     private Map? map;
     private Point point;
+    public abstract char Symbol { get; }
     public string Name
     {
         get => name;
