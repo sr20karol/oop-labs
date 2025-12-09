@@ -4,18 +4,12 @@ public class SmallSquareMap : Map
 {
     public int Size { get; }
 
-    private Rectangle Bounds => new Rectangle(new Point(0, 0), new Point(Size - 1, Size - 1));
-
-    public SmallSquareMap(int size)
+    public SmallSquareMap(int size) : base(size, size)
     {
-        if (size < 5 || size > 20)
-            throw new ArgumentOutOfRangeException(nameof(size), "Size must be between 5 and 20.");
+        if (size > 20)
+            throw new ArgumentOutOfRangeException(nameof(size), "Size must be below 20");
+
         Size = size;
-    }
-
-    public override bool Exist(Point p)
-    {
-        return Bounds.Contains(p);
     }
 
     public override Point Next(Point p, Direction direction)

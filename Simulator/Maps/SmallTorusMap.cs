@@ -2,34 +2,28 @@
 
 public class SmallTorusMap : Map
 {
-    public int Size { get; }
-
-    public SmallTorusMap(int size)
+    public SmallTorusMap(int sizeX, int sizeY) : base(sizeX, sizeY)
     {
-        if (size < 5 || size > 20)
-            throw new ArgumentOutOfRangeException(nameof(size), "Size must be between 5 and 20.");
-        Size = size;
-    }
+        if (sizeX > 20)
+            throw new ArgumentOutOfRangeException(nameof(sizeX), "Size must be below 20");
+        if (sizeY > 20)
+            throw new ArgumentOutOfRangeException(nameof(sizeY), "Size must be below 20");
 
-
-    public override bool Exist(Point p)
-    {
-        return p.X >= 0 && p.X < Size && p.Y >= 0 && p.Y < Size;
     }
 
     public override Point Next(Point p, Direction direction)
     {
         Point next = p.Next(direction);
-        int x = (next.X + Size) % Size;
-        int y = (next.Y + Size) % Size;
+        int x = (next.X + SizeX) % SizeX;
+        int y = (next.Y + SizeY) % SizeY;
         return new Point(x, y);
     }
 
     public override Point NextDiagonal(Point p, Direction direction)
     {
         Point next = p.NextDiagonal(direction);
-        int x = (next.X + Size) % Size;
-        int y = (next.Y + Size) % Size;
+        int x = (next.X + SizeX) % SizeX;
+        int y = (next.Y + SizeY) % SizeY;
         return new Point(x, y);
     }
 }

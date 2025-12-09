@@ -2,10 +2,10 @@
 
 public static class DirectionParser
 {
-    public static Direction[] Parse(string input)
+    public static List<Direction> Parse(string input)
     {
         if (string.IsNullOrEmpty(input))
-            return new Direction[0];
+            return new List<Direction>();
 
         var directions = new List<Direction>();
 
@@ -28,6 +28,6 @@ public static class DirectionParser
             }
         }
 
-        return directions.ToArray();
+        return directions;
     }
 }

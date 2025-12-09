@@ -1,9 +1,13 @@
 ﻿namespace Simulator;
 
+using Simulator.Maps;
+
 public abstract class Creature
 {
     private string name = "Unknown";
     private int level = 1;
+    private Map? map;
+    private Point point;
     public string Name
     {
         get => name;
@@ -19,6 +23,8 @@ public abstract class Creature
     public Creature()
     {
     }
+
+    public Point Position => point;
 
     public Creature(string name, int level = 1)
     {
@@ -43,23 +49,48 @@ public abstract class Creature
         return $"{GetType().Name.ToUpper()}: {Info}";
     }
 
-    public string Go(Direction direction) => $"{direction.ToString().ToLower()}";
-
-    public string[] Go(Direction[] directions)
+    public void InitMapAndPosition(Map map, Point startingPosition)
     {
-        var result = new string[directions.Length];
+        if (map == null)
+            throw new ArgumentNullException(nameof(map));
+        if (!map.Exist(startingPosition))
+            throw new ArgumentOutOfRangeException(nameof(startingPosition));
+        if (this.map != null)
+            throw new InvalidOperationException("Creature is already placed on the map.");
 
-        for (int i = 0; i < directions.Length; i++)
-        {
-            result[i] = Go(directions[i]);
-        }
-        return result;
+        this.map = map;
+        point = startingPosition;
+        map.Add(this, startingPosition);
     }
+
+    public void Go(Direction direction)
+    {
+        if (map is null)
+            return;
+
+        Point nextPoint = map.Next(point, direction);
+
+        map.Move(this, point, nextPoint);
+
+        point = nextPoint;
+    }
+
+    //public string[] Go(List<Direction> directions)
+    //{
+    //    var result = new string[directions.Count];
+
+    //    for (int i = 0; i < directions.Count; i++)
+    //    {
+    //        result[i] = Go(directions[i]);
+    //    }
+    //    return result;
+    //}
 
     public abstract int Power { get; }
 
-    public string[] Go(string input)
-    {
-        return Go(DirectionParser.Parse(input));
-    }
+    //public string[] Go(string input)
+    //{
+    //    List<Direction> dirs = DirectionParser.Parse(input);
+    //    return Go(dirs);
+    //}
 }
