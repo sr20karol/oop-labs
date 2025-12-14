@@ -1,4 +1,5 @@
 ﻿using Simulator;
+using Simulator.Maps;
 
 /// <summary>
 /// Map of points.
@@ -9,7 +10,7 @@ public abstract class Map
     public readonly int SizeX;
     public readonly int SizeY;
     private readonly Rectangle area;
-    private readonly Dictionary<Point, List<Creature>> creatures = new();
+    private readonly Dictionary<Point, List<Imappable>> creatures = new();
     protected Map(int sizeX, int sizeY)
     {
         if (sizeX < 5)
@@ -31,40 +32,40 @@ public abstract class Map
         return area.Contains(p);
     }
 
-    public void Add(Creature c, Point p)
+    public void Add(Imappable mappable, Point p)
     {
         if (!creatures.TryGetValue(p, out var list))
         {
-            list = new List<Creature>();
+            list = new List<Imappable>();
             creatures[p] = list;
         }
-        list.Add(c);
+        list.Add(mappable);
     }
 
-    public void Remove(Creature c, Point p)
+    public void Remove(Imappable mappable, Point p)
     {
         if (creatures.TryGetValue(p, out var list))
         {
-            list.Remove(c);
+            list.Remove(mappable);
             if (list.Count == 0)
                 creatures.Remove(p);
         }
     }
 
-    public void Move(Creature c, Point from, Point to)
+    public void Move(Imappable mappable, Point from, Point to)
     {
-        Remove(c, from);
-        Add(c, to);
+        Remove(mappable, from);
+        Add(mappable, to);
     }
 
-    public IEnumerable<Creature> At(Point p)
+    public IEnumerable<Imappable> At(Point p)
     {
         if (creatures.TryGetValue(p, out var list))
             return list;
-        return Array.Empty<Creature>();
+        return Array.Empty<Imappable>();
     }
 
-    public IEnumerable<Creature> At(int x, int y)
+    public IEnumerable<Imappable> At(int x, int y)
     => At(new Point(x, y));
 
 

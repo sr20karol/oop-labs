@@ -3,7 +3,8 @@ public class Orc : Creature
 {
     private int rage = 1;
     private int huntCounter = 0;
-    public override char Symbol => 'O';
+    public override char MapSymbol => 'O';
+    public override char Symbol => MapSymbol;
 
     public int Rage
     {

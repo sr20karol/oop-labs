@@ -16,7 +16,7 @@ class Program
 
         SmallSquareMap map = new SmallSquareMap(5);
 
-        List<Creature> creatures = new()
+        List<Imappable> creatures = new()
         {
             new Orc("Gorbag"),
             new Elf("Elandor")

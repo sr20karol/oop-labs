@@ -47,7 +47,7 @@ public class MapVisualizer
     private char GetCellSymbol(int x, int y)
     {
         var creatures = _map.At(x, y).ToList();
-        if (creatures.Count == 1) return creatures[0].Symbol;
+        if (creatures.Count == 1) return creatures[0].MapSymbol;
         if (creatures.Count > 1) return 'X';
         return ' ';
     }

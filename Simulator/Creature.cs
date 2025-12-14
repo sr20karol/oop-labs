@@ -2,12 +2,13 @@
 
 using Simulator.Maps;
 
-public abstract class Creature
+public abstract class Creature : Imappable
 {
     private string name = "Unknown";
     private int level = 1;
     private Map? map;
     private Point point;
+    public virtual char MapSymbol => '?';
     public abstract char Symbol { get; }
     public string Name
     {
@@ -88,6 +89,8 @@ public abstract class Creature
     //}
 
     public abstract int Power { get; }
+
+    public Map? Map => map;
 
     //public string[] Go(string input)
     //{
