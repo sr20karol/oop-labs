@@ -1,9 +1,12 @@
 ﻿namespace Simulator;
 
-public class Animals
+using Simulator.Maps;
+
+public class Animals : Imappable
 {
     private string description = "Unknown";
-
+    protected Map? map;
+    protected Point point;
     public required string Description
     {
         get => description;
@@ -43,4 +46,34 @@ public class Animals
     {
         return $"{GetType().Name.ToUpper()}: {Info}";
     }
+
+    public void InitMapAndPosition(Map map, Point startingPosition)
+    {
+        if (map == null)
+            throw new ArgumentNullException(nameof(map));
+        if (!map.Exist(startingPosition))
+            throw new ArgumentOutOfRangeException(nameof(startingPosition));
+        if (this.map != null)
+            throw new InvalidOperationException("Animal is already placed on the map.");
+
+        this.map = map;
+        point = startingPosition;
+        map.Add(this, startingPosition);
+    }
+
+    public virtual void Go(Direction direction)
+    {
+        if (map is null)
+            return;
+
+        Point nextPoint = map.Next(point, direction);
+
+        map.Move(this, point, nextPoint);
+
+        point = nextPoint;
+    }
+
+    public virtual char MapSymbol => 'A';
+    public Point Position => point;
+    public Map? Map => map;
 }
