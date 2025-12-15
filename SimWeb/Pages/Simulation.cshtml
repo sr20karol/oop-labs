@@ -1,0 +1,90 @@
+﻿@page
+@model SimWeb.Pages.SimulationModel
+@{
+}
+
+
+@functions {
+    public string DirectionToWord(string move)
+    {
+        return move switch
+        {
+            "d" => "down",
+            "u" => "up",
+            "l" => "left",
+            "r" => "right",
+            "-" => "Starting positions",
+            _ => move
+        };
+    }
+
+    public string CharToImageName(char c) => c switch
+    {
+        'O' => "ogre",
+        'E' => "elf",
+        'A' => "rabbit",
+        'b' => "ostrich",
+        'B' => "eagle",
+        _ => ""
+    };
+}
+
+<div class="sim-container">
+
+    <div class="top-bar">
+        <form method="get">
+            <button name="turn"
+                    value="@(Model.CurrentTurn - 1)"
+                    class="nav-btn"
+                    disabled="@(Model.CurrentTurn == 0)">
+                ←
+            </button>
+
+            <span class="turn-title">Tura @Model.CurrentTurn</span>
+
+            <button name="turn"
+                    value="@(Model.CurrentTurn + 1)"
+                    class="nav-btn"
+                    disabled="@(Model.CurrentTurn == Model.Log.TurnLogs.Count - 1)">
+                →
+            </button>
+        </form>
+    </div>
+
+    <div class="map-wrapper">
+        <table class="map">
+            @for (int y = Model.Log.SizeY - 1; y >= 0; y--)
+            {
+                <tr>
+                    @for (int x = 0; x < Model.Log.SizeX; x++)
+                    {
+                        var p = new Point(x, y);
+                        var symbols = Model.Log.TurnLogs[Model.CurrentTurn].Symbols;
+
+                        <td>
+                            @if (symbols.ContainsKey(p))
+                            {
+                                var imgName = CharToImageName(symbols[p]);
+                                if (!string.IsNullOrEmpty(imgName))
+                                {
+                                    <img src="@Url.Content($"~/images/{imgName}.png")" class="creature" alt="@imgName" />
+                                }
+                                else
+                                {
+                                    @symbols[p]
+                                }
+                            }
+                        </td>
+                    }
+                </tr>
+            }
+        </table>
+    </div>
+
+    <div class="log-line">
+        <b>@Model.Log.TurnLogs[Model.CurrentTurn].Mappable</b>
+        →
+        <b>@DirectionToWord(Model.Log.TurnLogs[Model.CurrentTurn].Move.ToLower())</b>
+    </div>
+
+</div>

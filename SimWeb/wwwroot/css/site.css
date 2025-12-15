@@ -1,0 +1,92 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #e7ebf7;
+    margin: 0;
+    padding: 0;
+    color: #222;
+}
+
+header {
+    background-color: #09090a;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+}
+
+header .logo {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #6b21b5;
+    margin-right: 30px;
+}
+
+nav a {
+    color: #eee;
+    margin-right: 20px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+nav a.active {
+    color: #6b21b5
+}
+
+main {
+    max-width: 700px;
+    margin: 40px auto;
+    text-align: center;
+}
+
+.sim-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Arial, sans-serif;
+}
+
+.top-bar {
+    margin-bottom: 10px;
+}
+
+.turn-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0 20px;
+}
+
+.nav-btn {
+    font-size: 20px;
+    width: 50px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.map-wrapper {
+    background-color: #9af08d;
+    border-radius: 5px;
+}
+
+table.map {
+    border-collapse: collapse;
+}
+
+table.map td {
+    width: 70px;
+    height: 70px;
+    border: 1px dashed #333;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 40px;
+}
+
+.log-line {
+    margin-top: 15px;
+    font-size: 18px;
+}
+
+.creature {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}

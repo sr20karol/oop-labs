@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"] - SimWeb</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <div class="logo">SimWeb</div>
+        <nav>
+            <a asp-page="/Index" class="@(IsActive("Index") ? "active" : "")">Informacje</a>
+            <a asp-page="/Simulation" class="@(IsActive("/Simulation") ? "active" : "")">Symulacja</a>
+        </nav>
+    </header>
+
+    <main>
+        @RenderBody()
+    </main>
+
+    @functions {
+        public bool IsActive(string page)
+        {
+            var current = Context.Request.Path.Value?.ToLowerInvariant();
+
+            if (current == "/") current = "index";
+
+            return current == page.ToLowerInvariant();
+        }
+    }
+
+</body>
+</html>
